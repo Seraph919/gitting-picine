@@ -39,6 +39,7 @@ char	*ft_strcapitalize(char *str)
 	}
 	while (str[i])
 	{
+		//edit those so it can cover more cases..
 		if ((str[i] == ' ' || str[i] == '+' || str[i] == '-' || str[i] == '\n')
 			&& (str[i + 1] <= 'z' && str[i + 1] >= 'a'))
 			str[i + 1] -= 32;

@@ -16,11 +16,14 @@ int	main(int a, char **b)
 {
 	int		i;
 
-	(void)a;
 	i = 0;
-	while (b[0][i])
+	if (a == 1)
 	{
-		write(1, &b[0][i++], 1);
+		while (b[0][i])
+		{
+			write(1, &b[0][i++], 1);
+		}
 	}
+	write(1,"\n",1);
 	return (0);
 }

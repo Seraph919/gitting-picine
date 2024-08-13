@@ -6,76 +6,73 @@
 /*   By: asoudani <asoudani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 22:53:02 by asoudani          #+#    #+#             */
-/*   Updated: 2024/08/12 10:32:20 by asoudani         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:50:50 by asoudani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
-int	fstrl(char *s)
+int	ft_strlen(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (str[i])
+	{
 		i++;
+	}
 	return (i);
 }
 
-char	*fstrcat(char *d, char *s)
+int	mallocsize(char **strs, char *sep, int size)
 {
 	int	i;
-	int	ld;
+	int	malsize;
 
-	ld = fstrl(d);
 	i = 0;
-	while (s[i])
-	{
-		d[ld + i] = s[i];
-		i++;
-	}
-	d[ld + i] = '\0';
-	return (d);
+	malsize = 0;
+	while (i < size)
+		malsize += ft_strlen(strs[i++]) + ft_strlen(sep);
+	return (malsize);
 }
 
-int	malsize(int size, char **strs, char *sep)
+void	cat(int size, char **strs, char *sep, char *join)
 {
+	int	j;
+	int	n;
 	int	i;
-	int	sizeofmal;
 
+	j = 0;
+	n = 0;
 	i = 0;
-	sizeofmal = 0;
-	sizeofmal += fstrl(sep) * (size - 1);
 	while (i < size)
 	{
-		sizeofmal += fstrl(strs[i]);
+		j = 0;
+		while (strs[i][j])
+			join[n++] = strs[i][j++];
+		j = 0;
+		while (sep[j] && i < size - 1)
+			join[n++] = sep[j++];
 		i++;
 	}
-	return (sizeofmal);
+	join[n] = '\0';
 }
 
 char	*ft_strjoin(int size, char **strs, char *sep)
 {
-	int		sizeofmal;
-	int		i;
-	char	*mal;
+	int		malsize;
+	char	*join;
 
-	i = 0;
-	sizeofmal = malsize(size, strs, sep);
-	mal = malloc(sizeofmal + 1);
-	if (!mal)
-		return (NULL);
-	mal[0] = '\0';
 	if (size == 0)
-		return (mal);
-	while (i < size)
 	{
-		fstrcat(mal, strs[i]);
-		if (i != size -1)
-			fstrcat(mal, sep);
-		i++;
+		join = malloc(1);
+		join[0] = '\0';
+		return (join);
 	}
-	mal[sizeofmal + 1] = '\0';
-	return (mal);
+	malsize = mallocsize(strs, sep, size);
+	join = malloc(malsize * sizeof(char));
+	if (!join)
+		return (NULL);
+	cat(size, strs, sep, join);
+	return (join);
 }

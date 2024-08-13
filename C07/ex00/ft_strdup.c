@@ -6,7 +6,7 @@
 /*   By: asoudani <asoudani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:37:28 by asoudani          #+#    #+#             */
-/*   Updated: 2024/08/11 20:59:03 by asoudani         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:53:48 by asoudani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ char	*ft_strdup(char *src)
 
 	i = 0;
 	dest = malloc(srcl(src) + 1);
-	while (str[i])
+	if (!dest)
+		return (NULL);
+	while (src[i])
 	{
 		dest[i] = src[i];
 		i++;
@@ -37,3 +39,18 @@ char	*ft_strdup(char *src)
 	dest[i] = '\0';
 	return (dest);
 }
+/*
+
+
+
+
+
+
+#include <stdio.h>
+int main()
+{
+	char *ss = "wachakhaydyali hani lya..w";
+	char *s = ft_strdup(ss);
+	printf("%s", s);
+}
+*/
